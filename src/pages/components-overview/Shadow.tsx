@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 
 // material-ui
-import { useTheme } from '@mui/material/styles';
 import { Grid, Stack, Typography } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 
 // project import
-import MainCard from 'components/MainCard';
+import MainCard from '../../components/MainCard';
 import ComponentSkeleton from './ComponentSkeleton';
 
 // ===============================|| SHADOW BOX ||=============================== //

@@ -2,8 +2,8 @@
 import { Breadcrumbs, Divider, Grid, Link, Stack, Typography } from '@mui/material';
 
 // project import
+import MainCard from '../../components/MainCard';
 import ComponentSkeleton from './ComponentSkeleton';
-import MainCard from 'components/MainCard';
 
 // ==============================|| COMPONENTS - TYPOGRAPHY ||============================== //
 

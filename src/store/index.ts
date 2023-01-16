@@ -2,7 +2,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 
 // project import
-import reducers from './reducers';
+import reducers from './reducers/index.ts';
 
 // ==============================|| REDUX TOOLKIT - MAIN STORE ||============================== //
 

@@ -1,0 +1,33 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "lib": ["dom", "dom.iterable", "esnext"],
+        "allowJs": true,
+        "skipLibCheck": true,
+        "strict": true,
+        "forceConsistentCasingInFileNames": true,
+        "noEmit": true,
+        "incremental": true,
+        "esModuleInterop": true,
+        "module": "esnext",
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "jsx": "react-jsx",
+        "downlevelIteration": true,
+
+        //ignore typescript errors
+        "no-consecutive-blank-lines": false,
+        "no-unused-variable": false
+    },
+    "include": [
+        "next-env.d.ts",
+        "**/*.ts",
+        "**/*.tsx",
+        "src/theme/index.js",
+        "src/services/.service.ts",
+        "src/routes/MainRoutes.tsx",
+        "src/routes/LoginRoutes.tsx"
+    ],
+    "exclude": ["node_modules"]
+}

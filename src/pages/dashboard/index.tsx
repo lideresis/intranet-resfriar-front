@@ -19,13 +19,13 @@ import {
 } from '@mui/material';
 
 // project import
-import OrdersTable from './OrdersTable';
+import AnalyticEcommerce from '../../components/cards/statistics/AnalyticEcommerce';
+import MainCard from '../../components/MainCard';
 import IncomeAreaChart from './IncomeAreaChart';
 import MonthlyBarChart from './MonthlyBarChart';
+import OrdersTable from './OrdersTable';
 import ReportAreaChart from './ReportAreaChart';
 import SalesColumnChart from './SalesColumnChart';
-import MainCard from 'components/MainCard';
-import AnalyticEcommerce from 'components/cards/statistics/AnalyticEcommerce';
 
 // assets
 import { GiftOutlined, MessageOutlined, SettingOutlined } from '@ant-design/icons';
