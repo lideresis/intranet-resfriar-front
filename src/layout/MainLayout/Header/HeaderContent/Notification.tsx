@@ -1,7 +1,6 @@
 import { useRef, useState } from 'react';
 
 // material-ui
-import { useTheme } from '@mui/material/styles';
 import {
     Avatar,
     Badge,
@@ -10,19 +9,20 @@ import {
     Divider,
     IconButton,
     List,
-    ListItemButton,
     ListItemAvatar,
-    ListItemText,
+    ListItemButton,
     ListItemSecondaryAction,
+    ListItemText,
     Paper,
     Popper,
     Typography,
     useMediaQuery
 } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 
 // project import
-import MainCard from 'components/MainCard';
-import Transitions from 'components/@extended/Transitions';
+import Transitions from '../../../../components/@extended/Transitions';
+import MainCard from '../../../../components/MainCard';
 
 // assets
 import { BellOutlined, CloseOutlined, GiftOutlined, MessageOutlined, SettingOutlined } from '@ant-design/icons';

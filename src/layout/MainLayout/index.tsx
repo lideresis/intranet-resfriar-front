@@ -7,13 +7,13 @@ import { Box, Toolbar, useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 
 // project import
-import navigation from 'menu-items';
 import Breadcrumbs from '../../components/@extended/Breadcrumbs';
+import navigation from '../../menu-items';
 import Drawer from './Drawer';
 import Header from './Header';
 
 // types
-import { openDrawer } from 'store/reducers/menu';
+import { openDrawer } from '../../store/reducers/menu';
 
 // ==============================|| MAIN LAYOUT ||============================== //
 
