@@ -24,7 +24,7 @@
         "**/*.ts",
         "**/*.tsx",
         "src/**/*.ts",
-        "src/index.d.ts",
+        "src/custom.d.ts",
         "src/theme/index.js",
         "src/services/.service.ts",
         "src/routes/MainRoutes.tsx",

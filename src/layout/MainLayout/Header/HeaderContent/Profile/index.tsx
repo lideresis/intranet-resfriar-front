@@ -20,14 +20,13 @@ import {
 import { useTheme } from '@mui/material/styles';
 
 // project import
-import Transitions from 'components/@extended/Transitions';
-import MainCard from 'components/MainCard';
+import Transitions from '../../../../../components/@extended/Transitions';
+import MainCard from '../../../../../components/MainCard';
 import ProfileTab from './ProfileTab';
 import SettingTab from './SettingTab';
 
 // assets
 import { LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
-import avatar1 from '../../../../assets/images/users/avatar-1.jpg';
 
 // tab panel wrapper
 function TabPanel({ children, value, index, ...other }) {
@@ -97,7 +96,7 @@ const Profile = () => {
                 onClick={handleToggle}
             >
                 <Stack direction="row" spacing={2} alignItems="center" sx={{ p: 0.5 }}>
-                    <Avatar alt="profile user" src={avatar1} sx={{ width: 32, height: 32 }} />
+                    <Avatar alt="profile user" src={''} sx={{ width: 32, height: 32 }} />
                     <Typography variant="subtitle1">John Doe</Typography>
                 </Stack>
             </ButtonBase>
@@ -124,7 +123,7 @@ const Profile = () => {
                         {open && (
                             <Paper
                                 sx={{
-                                    boxShadow: theme.customShadows.z1,
+                                    //boxShadow: theme.customShadows.z1,
                                     width: 290,
                                     minWidth: 240,
                                     maxWidth: 290,
@@ -139,7 +138,7 @@ const Profile = () => {
                                             <Grid container justifyContent="space-between" alignItems="center">
                                                 <Grid item>
                                                     <Stack direction="row" spacing={1.25} alignItems="center">
-                                                        <Avatar alt="profile user" src={avatar1} sx={{ width: 32, height: 32 }} />
+                                                        <Avatar alt="profile user" src={''} sx={{ width: 32, height: 32 }} />
                                                         <Stack>
                                                             <Typography variant="h6">John Doe</Typography>
                                                             <Typography variant="body2" color="textSecondary">
