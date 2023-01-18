@@ -4,27 +4,40 @@ import { Link } from 'react-router-dom';
 import { Grid, Stack, Typography } from '@mui/material';
 
 // project import
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import FirebaseRegister from './auth-forms/AuthRegister';
+import AuthRegisterCpf from './auth-forms/AuthRegisterCpf';
 import AuthWrapper from './AuthWrapper';
 
 // ================================|| REGISTER ||================================ //
 
-const Register = () => (
-    <AuthWrapper>
-        <Grid container spacing={3}>
-            <Grid item xs={12}>
-                <Stack direction="row" justifyContent="space-between" alignItems="baseline" sx={{ mb: { xs: -0.5, sm: 0.5 } }}>
-                    <Typography variant="h3">Sign up</Typography>
-                    <Typography component={Link} to="/login" variant="body1" sx={{ textDecoration: 'none' }} color="primary">
-                        Already have an account?
-                    </Typography>
-                </Stack>
+const Register = () => {
+    const [userCpf, setUserCpf] = useState<string>('');
+
+    const { control } = useForm();
+
+    const handleCpfVerification = (cpf: string) => {
+        setUserCpf(cpf);
+    };
+
+    return (
+        <AuthWrapper>
+            <Grid container spacing={3}>
+                <Grid item xs={12}>
+                    <Stack direction="row" justifyContent="space-between" alignItems="baseline" sx={{ mb: { xs: -0.5, sm: 0.5 } }}>
+                        <Typography variant="h3">Cadastro</Typography>
+                        <Typography component={Link} to="/login" variant="body1" sx={{ textDecoration: 'none' }} color="primary">
+                            Já possui uma conta?
+                        </Typography>
+                    </Stack>
+                </Grid>
+                <Grid item xs={12}>
+                    {userCpf ? <FirebaseRegister /> : <AuthRegisterCpf onRegister={handleCpfVerification} />}
+                </Grid>
             </Grid>
-            <Grid item xs={12}>
-                <FirebaseRegister />
-            </Grid>
-        </Grid>
-    </AuthWrapper>
-);
+        </AuthWrapper>
+    );
+};
 
 export default Register;

@@ -1,8 +1,5 @@
-import { yupResolver } from '@hookform/resolvers/yup';
-import { Link as RouterLink } from 'react-router-dom';
-
 // material-ui
-import { Button, FormHelperText, Grid, InputLabel, Link, Stack } from '@mui/material';
+import { Button, FormHelperText, Grid, InputLabel, Stack } from '@mui/material';
 
 // third party
 
@@ -13,12 +10,17 @@ import AnimateButton from '../../../components/@extended/AnimateButton';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { ControlledTextInput } from '../../../components/basics/ControlledTextInput/ControlledTextInput';
-import { User } from '../../../models/User';
-import { loginValidations } from '../../../utils/formValidations';
 
 // ============================|| FIREBASE - LOGIN ||============================ //
+interface Props {
+    onRegister: (cpf: string) => void;
+}
 
-const AuthLogin = () => {
+interface Form {
+    cpf: string;
+}
+
+const AuthRegisterCpf = ({ onRegister }: Props) => {
     const [errorSubmit, setErrorSubmit] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -26,23 +28,24 @@ const AuthLogin = () => {
         control,
         handleSubmit,
         formState: { errors }
-    } = useForm<User>({
+    } = useForm<Form>({
         mode: 'onChange',
         reValidateMode: 'onChange',
-        resolver: yupResolver(loginValidations),
         defaultValues: {
-            username: '',
-            password: ''
+            cpf: ''
         }
     });
 
-    const onSubmit = (data: User) => {
+    const onSubmit = (data: Form) => {
+        console.log('data', data);
         setIsSubmitting(true);
 
         console.log(data);
-        setErrorSubmit('Usuário ou senha inválidos');
+        setErrorSubmit('CPF não encontrado');
 
         setIsSubmitting(false);
+
+        onRegister(data.cpf);
     };
 
     return (
@@ -51,30 +54,8 @@ const AuthLogin = () => {
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
                         <Stack spacing={1}>
-                            <InputLabel htmlFor="username">Usuário</InputLabel>
-                            <ControlledTextInput
-                                placeholder="Usuário"
-                                name="username"
-                                control={control}
-                                errorMessage={errors.username?.message}
-                            />
-                        </Stack>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <InputLabel htmlFor="password">Senha</InputLabel>
-                        <ControlledTextInput
-                            placeholder="Senha"
-                            name="password"
-                            type="password"
-                            control={control}
-                            errorMessage={errors.password?.message}
-                        />
-                    </Grid>
-                    <Grid item xs={12} sx={{ mt: -1 }}>
-                        <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2}>
-                            <Link variant="h6" component={RouterLink} to="" color="text.primary">
-                                Esqueceu sua senha?
-                            </Link>
+                            <InputLabel htmlFor="cpf">Informe seu CPF</InputLabel>
+                            <ControlledTextInput placeholder="CPF" name="cpf" control={control} errorMessage={errors.cpf?.message} />
                         </Stack>
                     </Grid>
                     {errorSubmit && (
@@ -93,7 +74,7 @@ const AuthLogin = () => {
                                 variant="contained"
                                 color="primary"
                             >
-                                Login
+                                Verificar
                             </Button>
                         </AnimateButton>
                     </Grid>
@@ -103,4 +84,4 @@ const AuthLogin = () => {
     );
 };
 
-export default AuthLogin;
+export default AuthRegisterCpf;
