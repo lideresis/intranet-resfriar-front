@@ -14,47 +14,51 @@ import Header from './Header';
 
 // types
 import { openDrawer } from '../../store/reducers/menu';
+import { BottomNavigator } from './BottomNavigator/BottomNavigator';
 
 // ==============================|| MAIN LAYOUT ||============================== //
 
 const MainLayout = () => {
-    const theme = useTheme();
-    const matchDownLG = useMediaQuery(theme.breakpoints.down('xl'));
-    const dispatch = useDispatch();
+  const theme = useTheme();
+  const matchDownLG = useMediaQuery(theme.breakpoints.down('xl'));
+  const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
+  const dispatch = useDispatch();
 
-    const { drawerOpen } = useSelector((state) => state.menu);
+  const { drawerOpen } = useSelector((state) => state.menu);
 
-    // drawer toggler
-    const [open, setOpen] = useState(drawerOpen);
-    const handleDrawerToggle = () => {
-        setOpen(!open);
-        dispatch(openDrawer({ drawerOpen: !open }));
-    };
+  // drawer toggler
+  const [open, setOpen] = useState(drawerOpen);
 
-    // set media wise responsive drawer
-    useEffect(() => {
-        setOpen(!matchDownLG);
-        dispatch(openDrawer({ drawerOpen: !matchDownLG }));
+  const handleDrawerToggle = () => {
+    setOpen(!open);
+    dispatch(openDrawer({ drawerOpen: !open }));
+  };
 
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [matchDownLG]);
+  // set media wise responsive drawer
+  useEffect(() => {
+    setOpen(!matchDownLG);
+    dispatch(openDrawer({ drawerOpen: !matchDownLG }));
 
-    useEffect(() => {
-        if (open !== drawerOpen) setOpen(drawerOpen);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [drawerOpen]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [matchDownLG]);
 
-    return (
-        <Box sx={{ display: 'flex', width: '100%' }}>
-            <Header open={open} handleDrawerToggle={handleDrawerToggle} />
-            <Drawer open={open} handleDrawerToggle={handleDrawerToggle} />
-            <Box component="main" sx={{ width: '100%', flexGrow: 1, p: { xs: 2, sm: 3 } }}>
-                <Toolbar />
-                <Breadcrumbs navigation={navigation} title titleBottom card={false} divider={false} />
-                <Outlet />
-            </Box>
-        </Box>
-    );
+  useEffect(() => {
+    if (open !== drawerOpen) setOpen(drawerOpen);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [drawerOpen]);
+
+  return (
+    <Box sx={{ display: 'flex', width: '100%' }}>
+      <Header open={open} handleDrawerToggle={handleDrawerToggle} />
+      <Drawer open={open} handleDrawerToggle={handleDrawerToggle} />
+      <Box component="main" sx={{ width: '100%', flexGrow: 1, p: { xs: 2, sm: 3 } }}>
+        <Toolbar />
+        <Breadcrumbs navigation={navigation} title titleBottom card={false} divider={false} />
+        <Outlet />
+      </Box>
+      {matchDownSM && <BottomNavigator />}
+    </Box>
+  );
 };
 
 export default MainLayout;
