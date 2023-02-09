@@ -14,7 +14,6 @@ const HeaderContent = () => {
     <>
       {!matchesXs && <Box sx={{ width: '100%' }} />}
       {matchesXs && <Box sx={{ width: '100%', ml: 1 }} />}
-
       <Notification />
       <Profile />
     </>

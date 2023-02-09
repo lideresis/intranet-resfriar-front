@@ -1,6 +1,9 @@
-import { useTheme } from '@emotion/react';
-import { Button, Modal, TextField } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
+import { Button, Card, CardContent, CardHeader, Divider, IconButton, Modal, Stack, Tooltip, useMediaQuery, useTheme } from '@mui/material';
 import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { ControlledTextInput } from '../../../components/basics/ControlledTextInput/ControlledTextInput';
+import { PostModalAttachments } from '../PostModalAttachments/PostModalAttachments';
 
 interface Props {
   onCreate: (text: string) => void;
@@ -10,6 +13,16 @@ interface Props {
 const NewPostModal: React.FC<Props> = ({ onCreate, onClose }) => {
   const theme = useTheme();
   const [text, setText] = useState('');
+
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const { control } = useForm({
+    mode: 'onChange',
+    reValidateMode: 'onChange',
+    defaultValues: {
+      post: ''
+    }
+  });
 
   const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setText(event.target.value);
@@ -22,35 +35,46 @@ const NewPostModal: React.FC<Props> = ({ onCreate, onClose }) => {
   return (
     <div>
       <Modal
-        fullWidth
         aria-labelledby="new-post-modal-title"
         aria-describedby="new-post-modal-description"
         open={true}
         onClose={onClose}
         sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
       >
-        <div
-          style={{
-            backgroundColor: theme.palette.background.paper,
-            border: '2px solid #000',
-            boxShadow: theme.shadows[5],
-            padding: theme.spacing(2, 4, 3)
-          }}
-        >
-          <h2 id="new-post-modal-title">Nova publicação</h2>
-          <TextField
-            id="new-post-text"
-            label="Texto"
-            value={text}
-            onChange={handleTextChange}
-            fullWidth
-            margin="normal"
-            variant="outlined"
+        <Card sx={{ width: isMobile ? '100%' : '40%' }}>
+          <CardHeader
+            title="Criar publicação"
+            titleTypographyProps={{
+              textAlign: 'center',
+              variant: 'h4'
+            }}
+            action={
+              <Tooltip title="Fechar" placement="top">
+                <IconButton onClick={onClose}>
+                  <CloseIcon />
+                </IconButton>
+              </Tooltip>
+            }
           />
-          <Button variant="contained" color="primary" onClick={handleCreate}>
-            Criar
-          </Button>
-        </div>
+          <Divider />
+          <CardContent sx={{ p: 2 }}>
+            <Stack spacing={2}>
+              <ControlledTextInput
+                variant="outlined"
+                name="post"
+                control={control}
+                placeholder="No que você está pensando?"
+                value={text}
+                multiline
+                rows={5}
+              />
+              <PostModalAttachments />
+              <Button onClick={handleCreate} fullWidth variant="contained" color="primary">
+                Publicar
+              </Button>
+            </Stack>
+          </CardContent>
+        </Card>
       </Modal>
     </div>
   );

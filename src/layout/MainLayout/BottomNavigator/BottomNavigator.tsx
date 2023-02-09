@@ -1,4 +1,3 @@
-import AddIcon from '@mui/icons-material/Add';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import HomeIcon from '@mui/icons-material/Home';
@@ -48,29 +47,6 @@ export const BottomNavigator = () => {
         }}
       />
       <BottomNavigationAction label="Extrato" value={'/'} icon={<AttachMoneyIcon />} component={Link} to={'/'} centerRipple />
-      <BottomNavigationAction
-        label="Novo"
-        value={'/'}
-        icon={
-          <AddIcon
-            sx={{
-              color: theme.palette.common.white,
-              width: 45,
-              height: 45,
-              backgroundColor: theme.palette.primary.main,
-              borderRadius: 70
-            }}
-          />
-        }
-        component={Link}
-        to={'/'}
-        style={{
-          bottom: 10,
-          marginLeft: -10,
-          marginRight: -10
-        }}
-        centerRipple
-      />
       <BottomNavigationAction label="Indicações" value={'/'} icon={<FavoriteIcon />} component={Link} to={'/'} centerRipple />
       <BottomNavigationAction
         label="Mais"

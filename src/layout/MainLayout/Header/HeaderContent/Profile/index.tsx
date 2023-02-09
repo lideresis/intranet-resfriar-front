@@ -98,8 +98,16 @@ const Profile = () => {
         onClick={handleToggle}
       >
         <Stack direction="row" spacing={2} alignItems="center" sx={{ p: 0.5 }}>
-          <Avatar alt="profile user" src={''} sx={{ width: 32, height: 32 }} />
-          {!matchesXs && <Typography variant="subtitle1">John Doe</Typography>}
+          {!matchesXs ? (
+            <>
+              <Avatar alt="profile user" src={''} sx={{ width: 32, height: 32 }} />
+              <Typography variant="subtitle1">John Doe</Typography>
+            </>
+          ) : (
+            <IconButton size="small">
+              <UserOutlined />
+            </IconButton>
+          )}
         </Stack>
       </ButtonBase>
       <Popper
