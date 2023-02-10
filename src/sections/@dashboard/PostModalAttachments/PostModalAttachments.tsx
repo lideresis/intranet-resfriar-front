@@ -1,38 +1,39 @@
-import FileUploadIcon from '@mui/icons-material/FileUpload';
+import AttachFileIcon from '@mui/icons-material/AttachFile';
 import ImageIcon from '@mui/icons-material/Image';
 import { Box, IconButton, Tooltip, Typography } from '@mui/material';
 import { useState } from 'react';
+import { DropContainerComponent } from '../../../components/basics/DropContainerComponent/DropContainerComponent';
 import { Dropzone } from '../../../components/basics/Dropzone';
-import { Container, DropzoneGridContainer, UploadIconGrid, UploadTextGrid } from './styles';
+import { Container } from './styles';
+
+import { FileProps } from '../../../components/basics/Dropzone';
+import { ImagePreviewComponent } from '../../../components/pageComponents/ImagePreviewComponent/ImagePreviewComponent';
 
 export const PostModalAttachments = () => {
   const [showDropzone, setShowDropzone] = useState(false);
+  const [newFiles, setNewFiles] = useState<FileProps[]>([]);
 
-  const handleUploadFiles = () => {};
+  const handleUploadFiles = (files: FileProps[]) => {
+    console.log('files', files);
+    setNewFiles([...newFiles, ...files]);
+  };
 
   return (
     <>
       {
-        <Box>
-          {showDropzone && (
-            <Dropzone selectedFiles={handleUploadFiles}>
-              <DropzoneGridContainer>
-                <UploadIconGrid>
-                  <FileUploadIcon />
-                </UploadIconGrid>
-                <UploadTextGrid>
-                  <Typography variant="subtitle1" textAlign="center" overflow="hidden">
-                    Adicione fotos, videos, arquivos ou
-                  </Typography>
-                  <Typography variant="caption" textAlign="center" overflow="hidden">
-                    Arraste e solte
-                  </Typography>
-                </UploadTextGrid>
-                <IconButton
-              </DropzoneGridContainer>
-            </Dropzone>
+        <>
+          {newFiles.length > 0 ? (
+            <ImagePreviewComponent files={newFiles} />
+          ) : (
+            <>
+              {showDropzone && (
+                <Dropzone selectedFiles={handleUploadFiles}>
+                  <DropContainerComponent />
+                </Dropzone>
+              )}
+            </>
           )}
-        </Box>
+        </>
       }
       <Container>
         <Box>
@@ -46,11 +47,11 @@ export const PostModalAttachments = () => {
               <ImageIcon color="primary" />
             </IconButton>
           </Tooltip>
-          {/* <Tooltip title="Adicionar arquivo" placement="top">
-              <IconButton>
-                <AttachFileIcon color="primary" />
-              </IconButton>
-            </Tooltip> */}
+          <Tooltip title="Adicionar arquivo" placement="top">
+            <IconButton>
+              <AttachFileIcon color="primary" />
+            </IconButton>
+          </Tooltip>
         </Box>
       </Container>
     </>

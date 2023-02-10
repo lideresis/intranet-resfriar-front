@@ -1,5 +1,18 @@
 import CloseIcon from '@mui/icons-material/Close';
-import { Button, Card, CardContent, CardHeader, Divider, IconButton, Modal, Stack, Tooltip, useMediaQuery, useTheme } from '@mui/material';
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  Divider,
+  IconButton,
+  Modal,
+  Stack,
+  Tooltip,
+  useMediaQuery,
+  useTheme
+} from '@mui/material';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { ControlledTextInput } from '../../../components/basics/ControlledTextInput/ControlledTextInput';
@@ -59,19 +72,25 @@ const NewPostModal: React.FC<Props> = ({ onCreate, onClose }) => {
           <Divider />
           <CardContent sx={{ p: 2 }}>
             <Stack spacing={2}>
-              <ControlledTextInput
-                variant="outlined"
-                name="post"
-                control={control}
-                placeholder="No que você está pensando?"
-                value={text}
-                multiline
-                rows={5}
-              />
-              <PostModalAttachments />
-              <Button onClick={handleCreate} fullWidth variant="contained" color="primary">
-                Publicar
-              </Button>
+              <Box>
+                <ControlledTextInput
+                  variant="outlined"
+                  name="post"
+                  control={control}
+                  placeholder="No que você está pensando?"
+                  value={text}
+                  multiline
+                  rows={5}
+                />
+              </Box>
+              <Box>
+                <PostModalAttachments />
+              </Box>
+              <Box>
+                <Button onClick={handleCreate} fullWidth variant="contained" color="primary">
+                  Publicar
+                </Button>
+              </Box>
             </Stack>
           </CardContent>
         </Card>

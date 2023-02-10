@@ -1,5 +1,5 @@
-import { ReactNode, useCallback } from "react";
-import { useDropzone } from "react-dropzone";
+import { ReactNode, useCallback } from 'react';
+import { useDropzone } from 'react-dropzone';
 
 interface Props {
   selectedFiles: (uploadedFiles: FileProps[]) => void;
@@ -26,10 +26,10 @@ export const Dropzone = ({ children, selectedFiles }: Props) => {
     <div
       {...getRootProps()}
       style={{
-        width: "100%",
-        height: "100%",
-        display: "flex",
-        alignItems: "center",
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        alignItems: 'center'
       }}
     >
       <input {...getInputProps()} />

@@ -73,10 +73,14 @@ export const ControlledTextInput = ({
               </InputAdornment>
             )
           }
+          sx={{
+            margin: 0,
+            padding: 0
+          }}
           {...rest}
           {...field}
         />
-        <FormHelperText error>{errorMessage}</FormHelperText>
+        {errorMessage && <FormHelperText error>{errorMessage}</FormHelperText>}
       </Stack>
     );
   };

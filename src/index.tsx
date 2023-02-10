@@ -24,7 +24,7 @@ const root = createRoot(container!); // createRoot(container!) if you use TypeSc
 root.render(
   <StrictMode>
     <ReduxProvider store={store}>
-      <BrowserRouter basename="/resfriar">
+      <BrowserRouter>
         <App />
       </BrowserRouter>
     </ReduxProvider>

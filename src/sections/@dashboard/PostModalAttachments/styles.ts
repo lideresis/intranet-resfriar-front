@@ -12,20 +12,6 @@ export const HeaderContainer = styled(Box).attrs({})`
   width: 100%;
 `;
 
-export const DropzoneGridContainer = styled(Grid).attrs({
-  container: true
-})`
-  border: solid;
-  border-width: 0.5px;
-  border-radius: 4px;
-  border-color: ${({ theme }) => theme.palette.grey[300]};
-
-  &:hover {
-    background-color: ${({ theme }) => theme.palette.grey[100]};
-    border-color: ${({ theme }) => theme.palette.grey[400]};
-  }
-`;
-
 export const DropAttachmentContainer = styled(Box).attrs({})`
   display: flex;
   width: 100%;
@@ -44,31 +30,6 @@ export const FooterContainer = styled(Box)`
   width: 100%;
   justify-content: flex-end;
   margin-top: 1rem;
-`;
-
-export const UploadIconGrid = styled(Grid).attrs({
-  item: true,
-  xs: 2,
-  md: 2,
-  lg: 2
-})`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-export const UploadTextGrid = styled(Grid).attrs({
-  item: true,
-  xs: 8,
-  md: 8,
-  lg: 8,
-  display: 'flex',
-  flexDirection: 'column',
-  overflow: 'hidden'
-})`
-  justify-content: center;
-  align-items: center;
-  padding: 1rem;
 `;
 
 export const AttachmentsListContainer = styled(Box)`
