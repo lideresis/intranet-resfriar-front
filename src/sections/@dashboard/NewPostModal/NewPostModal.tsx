@@ -70,7 +70,7 @@ const NewPostModal: React.FC<Props> = ({ onCreate, onClose }) => {
             }
           />
           <Divider />
-          <CardContent sx={{ p: 2 }}>
+          <CardContent>
             <Stack spacing={2}>
               <Box>
                 <ControlledTextInput

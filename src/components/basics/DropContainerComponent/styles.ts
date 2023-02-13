@@ -8,7 +8,6 @@ export const DropzoneGridContainer = styled(Grid).attrs({
   border-width: 0.5px;
   border-radius: 4px;
   border-color: ${({ theme }) => theme.palette.grey[300]};
-  margin-bottom: 1rem;
 
   &:hover {
     background-color: ${({ theme }) => theme.palette.grey[100]};

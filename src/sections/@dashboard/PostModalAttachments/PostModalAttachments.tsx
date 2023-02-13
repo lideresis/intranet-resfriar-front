@@ -33,20 +33,22 @@ export const PostModalAttachments = () => {
           )}
         </>
       }
-      <Container>
-        <Box>
-          <Typography variant="body1" color="text.primary" align="left">
-            Adicionar à sua publicação
-          </Typography>
-        </Box>
-        <Box>
-          <Tooltip title="Adicionar midias" placement="top">
-            <IconButton onClick={() => setShowDropzoneMedia(true)}>
-              <ImageIcon color="primary" />
-            </IconButton>
-          </Tooltip>
-        </Box>
-      </Container>
+      {!showDropzoneMedia && (
+        <Container>
+          <Box>
+            <Typography variant="body1" color="text.primary" align="left">
+              Adicionar à sua publicação
+            </Typography>
+          </Box>
+          <Box>
+            <Tooltip title="Adicionar midias" placement="top">
+              <IconButton onClick={() => setShowDropzoneMedia(true)}>
+                <ImageIcon color="primary" />
+              </IconButton>
+            </Tooltip>
+          </Box>
+        </Container>
+      )}
     </>
   );
 };
