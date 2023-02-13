@@ -22,9 +22,8 @@ export const ImagesContainer = styled(Box).attrs({
 })`
   display: flex;
   flex-direction: column;
-  padding: 1rem;
-  margin-bottom: 1rem;
 
+  padding: 0.2rem;
   max-height: 40vh;
 
   border: 0.5px;
@@ -35,8 +34,12 @@ export const ImagesContainer = styled(Box).attrs({
 
 export const CloseWrapper = styled(Box)`
   position: relative;
-  top: 30px;
   right: 5px;
   z-index: 999;
   align-self: flex-end;
+`;
+
+export const ActionContainer = styled(Box)`
+  display: flex;
+  justify-content: flex-end;
 `;

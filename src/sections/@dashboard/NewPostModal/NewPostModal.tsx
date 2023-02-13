@@ -80,7 +80,7 @@ const NewPostModal: React.FC<Props> = ({ onCreate, onClose }) => {
                   placeholder="No que você está pensando?"
                   value={text}
                   multiline
-                  rows={5}
+                  minRows={3}
                 />
               </Box>
               <Box>

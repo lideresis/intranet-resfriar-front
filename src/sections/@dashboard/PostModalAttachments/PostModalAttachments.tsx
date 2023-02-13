@@ -1,4 +1,3 @@
-import AttachFileIcon from '@mui/icons-material/AttachFile';
 import ImageIcon from '@mui/icons-material/Image';
 import { Box, IconButton, Tooltip, Typography } from '@mui/material';
 import { useState } from 'react';
@@ -7,14 +6,13 @@ import { Dropzone } from '../../../components/basics/Dropzone';
 import { Container } from './styles';
 
 import { FileProps } from '../../../components/basics/Dropzone';
-import { ImagePreviewComponent } from '../../../components/pageComponents/ImagePreviewComponent/ImagePreviewComponent';
+import { PreviewComponent } from '../../../components/pageComponents/ImagePreviewComponent/ImagePreviewComponent';
 
 export const PostModalAttachments = () => {
-  const [showDropzone, setShowDropzone] = useState(false);
+  const [showDropzoneMedia, setShowDropzoneMedia] = useState(false);
   const [newFiles, setNewFiles] = useState<FileProps[]>([]);
 
-  const handleUploadFiles = (files: FileProps[]) => {
-    console.log('files', files);
+  const handleUploadMedia = (files: FileProps[]) => {
     setNewFiles([...newFiles, ...files]);
   };
 
@@ -23,12 +21,12 @@ export const PostModalAttachments = () => {
       {
         <>
           {newFiles.length > 0 ? (
-            <ImagePreviewComponent files={newFiles} />
+            <PreviewComponent uploadedFiles={newFiles} handleClearFiles={() => setNewFiles([])} />
           ) : (
             <>
-              {showDropzone && (
-                <Dropzone selectedFiles={handleUploadFiles}>
-                  <DropContainerComponent />
+              {showDropzoneMedia && (
+                <Dropzone selectedFiles={handleUploadMedia}>
+                  <DropContainerComponent title="Adicione fotos/videos ou arquivos" />
                 </Dropzone>
               )}
             </>
@@ -42,14 +40,9 @@ export const PostModalAttachments = () => {
           </Typography>
         </Box>
         <Box>
-          <Tooltip title="Adicionar imagem" placement="top">
-            <IconButton onClick={() => setShowDropzone(true)}>
+          <Tooltip title="Adicionar midias" placement="top">
+            <IconButton onClick={() => setShowDropzoneMedia(true)}>
               <ImageIcon color="primary" />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Adicionar arquivo" placement="top">
-            <IconButton>
-              <AttachFileIcon color="primary" />
             </IconButton>
           </Tooltip>
         </Box>
