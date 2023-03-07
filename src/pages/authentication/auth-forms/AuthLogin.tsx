@@ -2,7 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Link as RouterLink } from 'react-router-dom';
 
 // material-ui
-import { Button, FormHelperText, Grid, InputLabel, Link, Stack } from '@mui/material';
+import { Alert, Button, Grid, InputLabel, Link, Stack } from '@mui/material';
 
 // third party
 
@@ -49,6 +49,13 @@ const AuthLogin = () => {
     <>
       <form noValidate onSubmit={handleSubmit(onSubmit)}>
         <Grid container spacing={3}>
+          {errorSubmit && (
+            <Grid item xs={12}>
+              <Alert severity="error" variant="outlined" sx={{ width: '100%' }}>
+                {errorSubmit}
+              </Alert>
+            </Grid>
+          )}
           <Grid item xs={12}>
             <Stack spacing={1}>
               <InputLabel htmlFor="username">Usuário</InputLabel>
@@ -72,11 +79,6 @@ const AuthLogin = () => {
               </Link>
             </Stack>
           </Grid>
-          {errorSubmit && (
-            <Grid item xs={12}>
-              <FormHelperText error>{errorSubmit}</FormHelperText>
-            </Grid>
-          )}
           <Grid item xs={12}>
             <AnimateButton>
               <Button disableElevation disabled={isSubmitting} fullWidth size="large" type="submit" variant="contained" color="primary">

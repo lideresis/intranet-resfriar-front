@@ -1,26 +1,20 @@
-// material-ui
-import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
-import { FormHelperText, IconButton, InputAdornment, Stack, TextField } from '@mui/material';
-
-// third party
-
-// project import
-import { BaseTextFieldProps } from '@mui/material';
-import { useState } from 'react';
-import { Control, Controller } from 'react-hook-form';
+import { BaseTextFieldProps, TextField } from '@mui/material';
+import { Control, Controller, FieldError } from 'react-hook-form';
+import InputMask from 'react-input-mask';
 
 interface Props extends BaseTextFieldProps {
   name: string;
   control: Control<any>;
   label?: string;
   placeholder?: string;
+  autoFocus?: boolean;
   defaultValue?: string;
-  errorMessage?: string;
+  errorMessage?: string | FieldError | undefined;
   type?: string;
   required?: boolean;
   minRows?: number;
-  showPassword?: boolean;
-  variant?: 'standard' | 'filled' | 'outlined';
+  variant?: 'outlined' | 'standard' | 'filled';
+  mask?: string | RegExp | undefined;
 }
 
 export const ControlledTextInput = ({
@@ -28,62 +22,39 @@ export const ControlledTextInput = ({
   control,
   label,
   placeholder,
+  autoFocus,
   defaultValue,
   errorMessage,
   type = 'text',
   minRows,
   variant = 'outlined',
+  mask,
   ...rest
 }: Props) => {
-  const [showPassword, setShowPassword] = useState(false);
-
-  const handleClickShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
-
-  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-  };
-
   const _renderInput = ({ field }: any) => {
-    return (
-      <Stack>
-        <TextField
-          fullWidth
-          type={type != 'password' ? type : showPassword ? 'text' : 'password'}
-          label={label}
-          placeholder={placeholder}
-          autoComplete="new-password"
-          multiline={minRows ? true : false}
-          minRows={minRows ? minRows : 1}
-          error={!!errorMessage}
-          variant={variant}
-          endAdornment={
-            type === 'password' && (
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                  edge="end"
-                  size="large"
-                >
-                  {showPassword ? <EyeOutlined /> : <EyeInvisibleOutlined />}
-                </IconButton>
-              </InputAdornment>
-            )
-          }
-          sx={{
-            margin: 0,
-            padding: 0
-          }}
-          {...rest}
-          {...field}
-        />
-        {errorMessage && <FormHelperText error>{errorMessage}</FormHelperText>}
-      </Stack>
+    const inputProps = {
+      ...field,
+      ...rest,
+      fullWidth: true,
+      type,
+      label,
+      autoFocus,
+      placeholder,
+      multiline: !!minRows,
+      minRows: minRows || 1,
+      error: !!errorMessage,
+      helperText: errorMessage,
+      variant
+    };
+
+    return mask ? (
+      <InputMask mask={mask} {...inputProps}>
+        {(inputProps: any) => <TextField {...inputProps} />}
+      </InputMask>
+    ) : (
+      <TextField {...inputProps} />
     );
   };
 
-  return <Controller name={name} control={control} render={_renderInput} defaultValue={defaultValue ? defaultValue : ''} />;
+  return <Controller name={name} control={control} render={_renderInput} defaultValue={defaultValue ?? ''} />;
 };
