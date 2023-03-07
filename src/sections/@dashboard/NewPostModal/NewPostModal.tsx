@@ -19,11 +19,12 @@ import { ControlledTextInput } from '../../../components/basics/ControlledTextIn
 import { PostModalAttachments } from '../PostModalAttachments/PostModalAttachments';
 
 interface Props {
+  open: boolean;
   onCreate: (text: string) => void;
   onClose: () => void;
 }
 
-const NewPostModal: React.FC<Props> = ({ onCreate, onClose }) => {
+const NewPostModal: React.FC<Props> = ({ open, onCreate, onClose }) => {
   const theme = useTheme();
   const [text, setText] = useState('');
 
@@ -50,7 +51,7 @@ const NewPostModal: React.FC<Props> = ({ onCreate, onClose }) => {
       <Modal
         aria-labelledby="new-post-modal-title"
         aria-describedby="new-post-modal-description"
-        open={true}
+        open={open}
         onClose={onClose}
         sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
       >

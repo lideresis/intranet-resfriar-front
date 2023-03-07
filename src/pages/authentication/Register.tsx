@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
 // material-ui
-import { Grid, Stack, Typography } from '@mui/material';
+import { Card, CardContent, Grid, Stack, Typography } from '@mui/material';
 
 // project import
 import { useState } from 'react';
@@ -13,31 +13,35 @@ import AuthWrapper from './AuthWrapper';
 // ================================|| REGISTER ||================================ //
 
 const Register = () => {
-    const [userCpf, setUserCpf] = useState<string>('');
+  const [userCpf, setUserCpf] = useState<string>('');
 
-    const { control } = useForm();
+  const { control } = useForm();
 
-    const handleCpfVerification = (cpf: string) => {
-        setUserCpf(cpf);
-    };
+  const handleCpfVerification = (cpf: string) => {
+    setUserCpf(cpf);
+  };
 
-    return (
-        <AuthWrapper>
-            <Grid container spacing={3}>
-                <Grid item xs={12}>
-                    <Stack direction="row" justifyContent="space-between" alignItems="baseline" sx={{ mb: { xs: -0.5, sm: 0.5 } }}>
-                        <Typography variant="h3">Cadastro</Typography>
-                        <Typography component={Link} to="/login" variant="body1" sx={{ textDecoration: 'none' }} color="primary">
-                            Já possui uma conta?
-                        </Typography>
-                    </Stack>
-                </Grid>
-                <Grid item xs={12}>
-                    {userCpf ? <FirebaseRegister /> : <AuthRegisterCpf onRegister={handleCpfVerification} />}
-                </Grid>
+  return (
+    <AuthWrapper>
+      <Card>
+        <CardContent>
+          <Grid container spacing={3}>
+            <Grid item xs={12}>
+              <Stack direction="row" justifyContent="space-between" alignItems="baseline" sx={{ mb: { xs: -0.5, sm: 0.5 } }}>
+                <Typography variant="h3">Cadastro</Typography>
+                <Typography component={Link} to="/login" variant="body1" sx={{ textDecoration: 'none' }} color="primary">
+                  Já possui uma conta?
+                </Typography>
+              </Stack>
             </Grid>
-        </AuthWrapper>
-    );
+            <Grid item xs={12}>
+              {userCpf ? <FirebaseRegister /> : <AuthRegisterCpf onRegister={handleCpfVerification} />}
+            </Grid>
+          </Grid>
+        </CardContent>
+      </Card>
+    </AuthWrapper>
+  );
 };
 
 export default Register;

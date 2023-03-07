@@ -1,8 +1,9 @@
 import { useState } from 'react';
 
 // material-ui
-import { Box, Grid } from '@mui/material';
+import { Box, Card, CardHeader, Grid, Theme, useMediaQuery } from '@mui/material';
 import { NewPostCard } from '../../components/pageComponents/NewPostCard/NewPostCard';
+import Timeline from '../../components/pageComponents/Timeline/Timeline';
 import NewPostModal from '../../sections/@dashboard/NewPostModal/NewPostModal';
 
 // project import
@@ -49,6 +50,8 @@ const DashboardDefault = () => {
   const [slot, setSlot] = useState('week');
   const [showModal, setShowModal] = useState(false);
 
+  const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('md'));
+
   const handleOpenModal = () => {
     setShowModal(true);
   };
@@ -63,14 +66,28 @@ const DashboardDefault = () => {
 
   return (
     <>
-      <Grid container rowSpacing={4.5} columnSpacing={2.75} sx={{ justifyContent: 'space-evenly' }}>
-        <Grid item xs={12} lg={9}>
+      <Grid container sx={{ justifyContent: 'space-between' }}>
+        <Grid item sm={12} md={9} sx={{ justifyContent: 'center' }}>
           <Box>
             <NewPostCard showPostModal={handleOpenModal} />
           </Box>
+          <Box sx={{ pt: 4 }}>
+            <Timeline />
+          </Box>
         </Grid>
+        {!isMobile && (
+          <Grid item xs={12} md={3}>
+            <Grid container>
+              <Grid item sm={12}>
+                <Card>
+                  <CardHeader title="Aniversario 1" />
+                </Card>
+              </Grid>
+            </Grid>
+          </Grid>
+        )}
       </Grid>
-      {showModal && <NewPostModal onClose={handleCloseModal} onCreate={handleNewPost} />}
+      <NewPostModal open={showModal} onClose={handleCloseModal} onCreate={handleNewPost} />
     </>
 
     // <Grid container rowSpacing={4.5} columnSpacing={2.75}>

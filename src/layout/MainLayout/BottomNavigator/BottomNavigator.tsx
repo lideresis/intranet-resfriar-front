@@ -36,7 +36,7 @@ export const BottomNavigator = () => {
       }}
     >
       <BottomNavigationAction
-        label="Início"
+        label="Feed"
         value={'/'}
         icon={<HomeIcon />}
         component={Link}
@@ -46,8 +46,8 @@ export const BottomNavigator = () => {
           marginRight: -10
         }}
       />
-      <BottomNavigationAction label="Extrato" value={'/'} icon={<AttachMoneyIcon />} component={Link} to={'/'} centerRipple />
-      <BottomNavigationAction label="Indicações" value={'/'} icon={<FavoriteIcon />} component={Link} to={'/'} centerRipple />
+      <BottomNavigationAction label="Aniversários" value={'/'} icon={<FavoriteIcon />} component={Link} to={'/'} centerRipple />
+      <BottomNavigationAction label="Pagamento" value={'/'} icon={<AttachMoneyIcon />} component={Link} to={'/'} centerRipple />
       <BottomNavigationAction
         label="Mais"
         value={'/'}
