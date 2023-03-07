@@ -18,7 +18,6 @@ import { registerValidations } from '../../../utils/formValidations';
 // ============================|| FIREBASE - REGISTER ||============================ //
 
 interface Form {
-  name: string;
   email: string;
   password: string;
 }
@@ -42,7 +41,6 @@ const AuthRegister = () => {
     reValidateMode: 'onChange',
     resolver: yupResolver(registerValidations),
     defaultValues: {
-      name: '',
       email: '',
       password: ''
     }
@@ -74,12 +72,6 @@ const AuthRegister = () => {
     <>
       <form noValidate onSubmit={handleSubmit(onSubmit)}>
         <Grid container spacing={3}>
-          <Grid item xs={12} md={12}>
-            <Stack spacing={1}>
-              <InputLabel htmlFor="name">Nome</InputLabel>
-              <ControlledTextInput placeholder="Nome" name="name" control={control} errorMessage={errors.name?.message} />
-            </Stack>
-          </Grid>
           <Grid item xs={12}>
             <Stack spacing={1}>
               <InputLabel htmlFor="email">E-mail</InputLabel>

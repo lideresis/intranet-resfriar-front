@@ -65,15 +65,15 @@ const DashboardDefault = () => {
   };
 
   return (
-    <>
-      <Grid container sx={{ justifyContent: 'space-between' }}>
-        <Grid item sm={12} md={9} sx={{ justifyContent: 'center' }}>
-          <Box>
-            <NewPostCard showPostModal={handleOpenModal} />
-          </Box>
-          <Box sx={{ pt: 4 }}>
-            <Timeline />
-          </Box>
+    <Box p={isMobile ? 1 : 4}>
+      <Grid container spacing={4} sx={{ justifyContent: 'space-between' }}>
+        <Grid item sm={12} md={8}>
+          <NewPostCard showPostModal={handleOpenModal} />
+          <Grid container sx={{ mt: 4 }}>
+            <Grid item sm={12}>
+              <Timeline />
+            </Grid>
+          </Grid>
         </Grid>
         {!isMobile && (
           <Grid item xs={12} md={3}>
@@ -88,7 +88,7 @@ const DashboardDefault = () => {
         )}
       </Grid>
       <NewPostModal open={showModal} onClose={handleCloseModal} onCreate={handleNewPost} />
-    </>
+    </Box>
 
     // <Grid container rowSpacing={4.5} columnSpacing={2.75}>
     //     {/* row 1 */}

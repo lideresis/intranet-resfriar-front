@@ -37,7 +37,7 @@ const Timeline = () => {
 
   return (
     <>
-      <Grid container maxWidth="lg" spacing={4}>
+      <Grid container spacing={4}>
         {posts.map((post) => (
           <Grid item xs={12} key={post.id}>
             <PostCard postData={post} />

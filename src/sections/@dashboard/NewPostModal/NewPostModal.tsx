@@ -53,9 +53,16 @@ const NewPostModal: React.FC<Props> = ({ open, onCreate, onClose }) => {
         aria-describedby="new-post-modal-description"
         open={open}
         onClose={onClose}
-        sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          flex: 1,
+          height: '100vh',
+          width: '100vw'
+        }}
       >
-        <Card sx={{ width: isMobile ? '100%' : '40%' }}>
+        <Card sx={{ width: isMobile ? '100%' : '40%', height: isMobile ? '100%' : 'auto' }}>
           <CardHeader
             title="Criar publicação"
             titleTypographyProps={{
@@ -71,7 +78,7 @@ const NewPostModal: React.FC<Props> = ({ open, onCreate, onClose }) => {
             }
           />
           <Divider />
-          <CardContent>
+          <CardContent sx={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
             <Stack spacing={2}>
               <Box>
                 <ControlledTextInput
