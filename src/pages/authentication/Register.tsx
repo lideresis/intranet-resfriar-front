@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
 // material-ui
-import { Card, CardContent, Grid, Stack, Typography } from '@mui/material';
+import { Grid, Stack, Typography } from '@mui/material';
 
 // project import
 import { useState } from 'react';
@@ -23,23 +23,19 @@ const Register = () => {
 
   return (
     <AuthWrapper>
-      <Card>
-        <CardContent>
-          <Grid container spacing={3}>
-            <Grid item xs={12}>
-              <Stack direction="row" justifyContent="space-between" alignItems="baseline" sx={{ mb: { xs: -0.5, sm: 0.5 } }}>
-                <Typography variant="h3">Cadastro</Typography>
-                <Typography component={Link} to="/login" variant="body1" sx={{ textDecoration: 'none' }} color="primary">
-                  Já possui uma conta?
-                </Typography>
-              </Stack>
-            </Grid>
-            <Grid item xs={12}>
-              {userCpf ? <FirebaseRegister /> : <AuthRegisterCpf onRegister={handleCpfVerification} />}
-            </Grid>
-          </Grid>
-        </CardContent>
-      </Card>
+      <Grid container spacing={3}>
+        <Grid item xs={12}>
+          <Stack direction="row" justifyContent="space-between" alignItems="baseline" sx={{ mb: { xs: -0.5, sm: 0.5 } }}>
+            <Typography variant="h3">Cadastro</Typography>
+            <Typography component={Link} to="/login" variant="body1" sx={{ textDecoration: 'none' }} color="primary">
+              Já possui uma conta?
+            </Typography>
+          </Stack>
+        </Grid>
+        <Grid item xs={12}>
+          {userCpf ? <FirebaseRegister /> : <AuthRegisterCpf onRegister={handleCpfVerification} />}
+        </Grid>
+      </Grid>
     </AuthWrapper>
   );
 };
