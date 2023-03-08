@@ -1,3 +1,4 @@
 export const LOCAL_STORAGE_KEYS = {
-  user: 'user'
+  user: 'user',
+  apiToken: 'apiToken'
 };

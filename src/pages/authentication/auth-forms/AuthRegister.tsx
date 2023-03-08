@@ -13,15 +13,9 @@ import { strengthColor, strengthIndicator } from '../../../utils/password-streng
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, useWatch } from 'react-hook-form';
 import { ControlledTextInput } from '../../../components/basics/ControlledTextInput/ControlledTextInput';
+import { UserForm } from '../../../models/User';
+import { AuthService } from '../../../services/Auth.service';
 import { registerValidations } from '../../../utils/formValidations';
-
-// ============================|| FIREBASE - REGISTER ||============================ //
-
-interface Form {
-  email: string;
-  password: string;
-}
-
 interface PasswordStrength {
   label: string;
   color: string;
@@ -36,13 +30,14 @@ const AuthRegister = () => {
     control,
     handleSubmit,
     formState: { errors }
-  } = useForm<Form>({
+  } = useForm<UserForm>({
     mode: 'onChange',
     reValidateMode: 'onChange',
     resolver: yupResolver(registerValidations),
     defaultValues: {
       email: '',
-      password: ''
+      password: '',
+      password_confirmation: ''
     }
   });
 
@@ -60,10 +55,13 @@ const AuthRegister = () => {
     changePassword(passwordWatch);
   }, [passwordWatch]);
 
-  const onSubmit = (data: Form) => {
+  const onSubmit = async (data: UserForm) => {
+    console.log('data', data);
+
     setIsSubmitting(true);
 
-    console.log(data);
+    const response = await AuthService.signUp(data);
+    console.log('response', response);
 
     setIsSubmitting(false);
   };
@@ -86,6 +84,16 @@ const AuthRegister = () => {
               type="password"
               control={control}
               errorMessage={errors.password?.message}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <InputLabel htmlFor="username">Confirme a senha</InputLabel>
+            <ControlledTextInput
+              placeholder="Confirme a senha"
+              name="password_confirmation"
+              type="password"
+              control={control}
+              errorMessage={errors.password_confirmation?.message}
             />
           </Grid>
           <Grid item xs={12}>

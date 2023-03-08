@@ -1,18 +1,21 @@
 import { AxiosResponse } from 'axios';
-import axiosInstance from '../middlewares/axios.interceptors';
-import { User } from '../models/User';
+import { default as createAxiosInstance } from '../middlewares/axios.interceptors';
+import { User, UserForm } from '../models/User';
 
 let showReponsesInConsole = process.env.REACT_APP_SHOW_RESPONSES_IN_CONSOLE;
 
 const loginUrl = '/auth/login';
-const signUpUrl = '/auth/sign-up';
+const signUpUrl = '/auth/cadastro';
 const accountConfirmation = '/auth/user-register-activate';
 const requestPasswordChange = '/auth/forgot-password';
 const changePassword = '/auth/forgot-password';
+const validateCpf = '/auth/verificacao-cpf';
 
 export const AuthService = {
   doLogin: async (data: User) => {
+    const axiosInstance = await createAxiosInstance();
     let response: AxiosResponse | undefined;
+
     try {
       return (response = await axiosInstance.post(loginUrl, data));
     } catch (err) {
@@ -24,21 +27,25 @@ export const AuthService = {
     }
   },
 
-  register: async (data: User) => {
+  signUp: async (data: UserForm) => {
+    const axiosInstance = await createAxiosInstance();
     let response: AxiosResponse | undefined;
+
     try {
       return (response = await axiosInstance.post(signUpUrl, data));
     } catch (err) {
-      console.log('Error in AuthService.register', err);
+      console.log('Error in AuthService.signUp', err);
     } finally {
       if (showReponsesInConsole) {
-        console.log('AuthService.register', response);
+        console.log('AuthService.signUp', response);
       }
     }
   },
 
   accountConfirmation: async (token: string) => {
+    const axiosInstance = await createAxiosInstance();
     let response: AxiosResponse | undefined;
+
     try {
       return await axiosInstance.get(`${accountConfirmation}/${token}`);
     } catch (err) {
@@ -51,7 +58,9 @@ export const AuthService = {
   },
 
   requestPasswordChange: async (email: string) => {
+    const axiosInstance = await createAxiosInstance();
     let response: AxiosResponse | undefined;
+
     try {
       return (response = await axiosInstance.post(requestPasswordChange, { email }));
     } catch (err) {
@@ -64,7 +73,9 @@ export const AuthService = {
   },
 
   changePasswordValidateToken: async (token: string) => {
+    const axiosInstance = await createAxiosInstance();
     let response: AxiosResponse | undefined;
+
     try {
       return (response = await axiosInstance.get(`${changePassword}/${token}`));
     } catch (err) {
@@ -77,7 +88,9 @@ export const AuthService = {
   },
 
   changePassword: async (token: string, data: { password: string; password_confirmation: string }) => {
+    const axiosInstance = await createAxiosInstance();
     let response: AxiosResponse | undefined;
+
     try {
       return (response = await axiosInstance.post(`${changePassword}/${token}`, data));
     } catch (err) {
@@ -85,6 +98,25 @@ export const AuthService = {
     } finally {
       if (showReponsesInConsole) {
         console.log('AuthService.changePassword', response);
+      }
+    }
+  },
+
+  validateCpf: async (cpf: string) => {
+    const axiosInstance = await createAxiosInstance();
+    let response: AxiosResponse | undefined;
+
+    try {
+      return (response = await axiosInstance.get(validateCpf, {
+        params: {
+          cpf
+        }
+      }));
+    } catch (err) {
+      console.log('Error in AuthService.validateCpf', err);
+    } finally {
+      if (showReponsesInConsole) {
+        console.log('AuthService.validateCpf', response);
       }
     }
   }

@@ -6,9 +6,9 @@ import { Grid, Stack, Typography } from '@mui/material';
 // project import
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import FirebaseRegister from './auth-forms/AuthRegister';
 import AuthRegisterCpf from './auth-forms/AuthRegisterCpf';
 import AuthWrapper from './AuthWrapper';
+import AuthRegister from './auth-forms/AuthRegister';
 
 // ================================|| REGISTER ||================================ //
 
@@ -33,7 +33,7 @@ const Register = () => {
           </Stack>
         </Grid>
         <Grid item xs={12}>
-          {userCpf ? <FirebaseRegister /> : <AuthRegisterCpf onRegister={handleCpfVerification} />}
+          {userCpf ? <AuthRegister /> : <AuthRegisterCpf onRegister={handleCpfVerification} />}
         </Grid>
       </Grid>
     </AuthWrapper>

@@ -1,5 +1,5 @@
 // material-ui
-import { Button, FormHelperText, Grid, InputLabel, Stack } from '@mui/material';
+import { Alert, Button, Grid, InputLabel, Stack } from '@mui/material';
 
 // third party
 
@@ -10,6 +10,7 @@ import AnimateButton from '../../../components/@extended/AnimateButton';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { ControlledTextInput } from '../../../components/basics/ControlledTextInput/ControlledTextInput';
+import { AuthService } from '../../../services/Auth.service';
 
 // ============================|| FIREBASE - LOGIN ||============================ //
 interface Props {
@@ -36,14 +37,16 @@ const AuthRegisterCpf = ({ onRegister }: Props) => {
     }
   });
 
-  const onSubmit = (data: Form) => {
-    console.log('data', data);
+  const onSubmit = async (data: Form) => {
+    setErrorSubmit('');
+
     setIsSubmitting(true);
-
-    console.log(data);
-    setErrorSubmit('CPF não encontrado');
-
+    const response = await AuthService.validateCpf(data.cpf);
     setIsSubmitting(false);
+
+    if (response?.status === 404) {
+      setErrorSubmit('CPF não encontrado');
+    }
 
     onRegister(data.cpf);
   };
@@ -52,6 +55,13 @@ const AuthRegisterCpf = ({ onRegister }: Props) => {
     <>
       <form noValidate onSubmit={handleSubmit(onSubmit)}>
         <Grid container spacing={3}>
+          {errorSubmit && (
+            <Grid item xs={12}>
+              <Alert severity="error" sx={{ width: '100%' }}>
+                {errorSubmit}
+              </Alert>
+            </Grid>
+          )}
           <Grid item xs={12}>
             <Stack spacing={1}>
               <InputLabel htmlFor="cpf">Informe seu CPF</InputLabel>
@@ -64,11 +74,7 @@ const AuthRegisterCpf = ({ onRegister }: Props) => {
               />
             </Stack>
           </Grid>
-          {errorSubmit && (
-            <Grid item xs={12}>
-              <FormHelperText error>{errorSubmit}</FormHelperText>
-            </Grid>
-          )}
+
           <Grid item xs={12}>
             <AnimateButton>
               <Button disableElevation disabled={isSubmitting} fullWidth size="large" type="submit" variant="contained" color="primary">
