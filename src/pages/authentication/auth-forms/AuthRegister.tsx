@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 // material-ui
-import { Box, Button, FormControl, FormHelperText, Grid, InputLabel, Stack, Typography } from '@mui/material';
+import { Alert, Box, Button, FormControl, Grid, InputLabel, Stack, Typography } from '@mui/material';
 
 // third party
 
@@ -23,7 +23,7 @@ interface PasswordStrength {
 
 const AuthRegister = () => {
   const [level, setLevel] = useState<PasswordStrength>();
-  const [errorSubmit, setErrorSubmit] = useState('');
+  const [formMessage, setFormMessage] = useState<{ severity: 'success' | 'error'; message: string }>();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const {
@@ -56,12 +56,27 @@ const AuthRegister = () => {
   }, [passwordWatch]);
 
   const onSubmit = async (data: UserForm) => {
-    console.log('data', data);
-
     setIsSubmitting(true);
 
     const response = await AuthService.signUp(data);
-    console.log('response', response);
+
+    if (response?.data?.error?.message) {
+      setFormMessage({
+        severity: 'error',
+        message: response.data.error.message
+      });
+    }
+
+    if (response?.status == 201) {
+      setFormMessage({
+        severity: 'success',
+        message: 'Cadastro realizado com sucesso!'
+      });
+
+      setTimeout(() => {
+        window.location.href = '/login';
+      }, 1000);
+    }
 
     setIsSubmitting(false);
   };
@@ -70,6 +85,13 @@ const AuthRegister = () => {
     <>
       <form noValidate onSubmit={handleSubmit(onSubmit)}>
         <Grid container spacing={3}>
+          {formMessage?.message && (
+            <Grid item xs={12}>
+              <Alert severity={formMessage.severity} variant="outlined" sx={{ width: '100%' }}>
+                {formMessage.message}
+              </Alert>
+            </Grid>
+          )}
           <Grid item xs={12}>
             <Stack spacing={1}>
               <InputLabel htmlFor="email">E-mail</InputLabel>
@@ -112,11 +134,6 @@ const AuthRegister = () => {
               </FormControl>
             )}
           </Grid>
-          {errorSubmit && (
-            <Grid item xs={12}>
-              <FormHelperText error>{errorSubmit}</FormHelperText>
-            </Grid>
-          )}
           <Grid item xs={12}>
             <AnimateButton>
               <Button disableElevation disabled={isSubmitting} fullWidth size="large" type="submit" variant="contained" color="primary">

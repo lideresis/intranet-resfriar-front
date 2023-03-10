@@ -13,7 +13,9 @@ import AnimateButton from '../../../components/@extended/AnimateButton';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { ControlledTextInput } from '../../../components/basics/ControlledTextInput/ControlledTextInput';
+import { LOCAL_STORAGE_KEYS } from '../../../localstorage/localstorageKeys';
 import { User } from '../../../models/User';
+import { AuthService } from '../../../services/Auth.service';
 import { loginValidations } from '../../../utils/formValidations';
 
 // ============================|| FIREBASE - LOGIN ||============================ //
@@ -36,11 +38,27 @@ const AuthLogin = () => {
     }
   });
 
-  const onSubmit = (data: User) => {
+  const onSubmit = async (data: User) => {
     setIsSubmitting(true);
 
-    console.log(data);
-    setErrorSubmit('Usuário ou senha inválidos');
+    const response = await AuthService.doLogin({
+      usuario: data.username,
+      senha: data.password!
+    });
+
+    if (response?.data?.error?.message) {
+      setErrorSubmit(response?.data?.error?.message);
+      setIsSubmitting(false);
+      return;
+    }
+
+    if (response?.data?.data?.usuario) {
+      localStorage.setItem(LOCAL_STORAGE_KEYS.USER, JSON.stringify(response?.data?.data?.usuario));
+
+      setTimeout(() => {
+        window.location.href = '/';
+      }, 1000);
+    }
 
     setIsSubmitting(false);
   };

@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
 import { default as createAxiosInstance } from '../middlewares/axios.interceptors';
-import { User, UserForm } from '../models/User';
+import { UserForm } from '../models/User';
 
 let showReponsesInConsole = process.env.REACT_APP_SHOW_RESPONSES_IN_CONSOLE;
 
@@ -12,7 +12,7 @@ const changePassword = '/auth/forgot-password';
 const validateCpf = '/auth/verificacao-cpf';
 
 export const AuthService = {
-  doLogin: async (data: User) => {
+  doLogin: async (data: { usuario: string; senha: string }) => {
     const axiosInstance = await createAxiosInstance();
     let response: AxiosResponse | undefined;
 
@@ -20,6 +20,7 @@ export const AuthService = {
       return (response = await axiosInstance.post(loginUrl, data));
     } catch (err) {
       console.log('Error in AuthService.doLogin', err);
+      return err as AxiosResponse;
     } finally {
       if (showReponsesInConsole) {
         console.log('AuthService.doLogin', response);
@@ -35,6 +36,7 @@ export const AuthService = {
       return (response = await axiosInstance.post(signUpUrl, data));
     } catch (err) {
       console.log('Error in AuthService.signUp', err);
+      return err as AxiosResponse;
     } finally {
       if (showReponsesInConsole) {
         console.log('AuthService.signUp', response);
@@ -50,6 +52,7 @@ export const AuthService = {
       return await axiosInstance.get(`${accountConfirmation}/${token}`);
     } catch (err) {
       console.log('Error in AuthService.accountConfirmation', err);
+      return err as AxiosResponse;
     } finally {
       if (showReponsesInConsole) {
         console.log('AuthService.accountConfirmation', response);
@@ -80,6 +83,7 @@ export const AuthService = {
       return (response = await axiosInstance.get(`${changePassword}/${token}`));
     } catch (err) {
       console.log('Error in AuthService.changePasswordValidateToken', err);
+      return err as AxiosResponse;
     } finally {
       if (showReponsesInConsole) {
         console.log('AuthService.changePasswordValidateToken', response);
@@ -95,6 +99,7 @@ export const AuthService = {
       return (response = await axiosInstance.post(`${changePassword}/${token}`, data));
     } catch (err) {
       console.log('Error in AuthService.changePassword', err);
+      return err as AxiosResponse;
     } finally {
       if (showReponsesInConsole) {
         console.log('AuthService.changePassword', response);
@@ -114,6 +119,7 @@ export const AuthService = {
       }));
     } catch (err) {
       console.log('Error in AuthService.validateCpf', err);
+      return err as AxiosResponse;
     } finally {
       if (showReponsesInConsole) {
         console.log('AuthService.validateCpf', response);

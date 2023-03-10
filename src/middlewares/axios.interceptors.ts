@@ -16,22 +16,16 @@ const createAxiosInstance = async () => {
       let apiToken: string | null = null;
 
       try {
-        let userStorage = localStorage.getItem(LOCAL_STORAGE_KEYS.user);
+        let userStorage = localStorage.getItem(LOCAL_STORAGE_KEYS.USER);
         user = JSON.parse(String(userStorage)) as User;
-
-        let apiToken = localStorage.getItem(LOCAL_STORAGE_KEYS.apiToken);
-        apiToken = JSON.parse(String(apiToken));
-
-        console.log('user axios', user);
-        console.log('apiToken axios', apiToken);
       } catch (e) {
         console.log('Sem autorização', e);
       }
 
       if (user && apiToken && config) {
-        config.headers['X-token'] = apiToken;
-        config.headers['X-empresa'] = user.empresa.api_token;
+        config.headers['X-token'] = user.token;
         config.headers['X-Usuario'] = user.token;
+        config.headers['X-empresa'] = user.empresa.api_token;
       }
 
       return config;

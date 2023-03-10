@@ -1,5 +1,6 @@
 // project import
 import ScrollTop from './components/ScrollTop';
+import { UserContextProvider } from './providers/UserProvider';
 import Routes from './routes';
 import ThemeCustomization from './themes';
 
@@ -7,7 +8,9 @@ const App = () => {
   return (
     <ThemeCustomization>
       <ScrollTop>
-        <Routes />
+        <UserContextProvider>
+          <Routes />
+        </UserContextProvider>
       </ScrollTop>
     </ThemeCustomization>
   );
